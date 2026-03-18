@@ -1,13 +1,15 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { analizarIntencionalidad } from "./src/services/forensicLogic.js";
+import fireRoutes from "./src/routes/fires.js";
+
 
 dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/api", fireRoutes);
 
 app.get("/api/monitoreo", (req, res) => {
     const mockData = {
@@ -19,6 +21,7 @@ app.get("/api/monitoreo", (req, res) => {
             {id: 3, lat: -34.168, lng: -58.530 }
         ]
     }; 
+    res.json(mockData);
 });
 
 const PORT = process.env.PORT || 3000;
